@@ -1,0 +1,17 @@
+extends ../layout/comon
+
+block content
+
+    form(action="/user/search",method="get")
+        input(type="text",placeholder="tim kiem",name="name") 
+        br
+        button serch
+    ul(class="a")
+        each user in listUser
+            li(class="list-group-item")= user.name  
+                a(href= '/user/view/' + user.id)  view
+            
+
+    a(href="/user/create") New
+    script
+        include h.js
