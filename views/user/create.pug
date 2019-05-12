@@ -1,6 +1,14 @@
 extends ../layout/comon
 
 block content
-    form(action="/user/create", method="post")   
-        input(type="text",name="name")
-        button Save
+    .container
+        .row
+            .col-12.pt-5
+                if errr
+                    each errrs in errr
+                        .alert.alert-danger=errrs
+
+                form.form-group(action="/user/create", method="post")   
+                    input.form-control.mb-3(type="text",name="name",value=valueName)
+                    input.form-control.mb-3(type="number",name="phone",value=valuePhone)
+                    button.btn.btn-primary.ml-3 Save

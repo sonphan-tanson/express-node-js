@@ -2,16 +2,28 @@ extends ../layout/comon
 
 block content
 
-    form(action="/user/search",method="get")
-        input(type="text",placeholder="tim kiem",name="name") 
-        br
-        button serch
-    ul(class="a")
-        each user in listUser
-            li(class="list-group-item")= user.name  
-                a(href= '/user/view/' + user.id)  view
-            
+    .container
+        .row
+            .col-12.pt-5
+                form.form-group.d-flex.align-items-center(action="/user/search",method="get")
+                    a.btn.btn-primary(href="/user/create") New
+                    input.form-control(type="text",placeholder="tim kiem",name="name") 
+                    br
+                    button.btn.btn-primary search
 
-    a(href="/user/create") New
-    script
-        include h.js
+                table.table
+                    tr
+                        th Name
+                        th Phone
+                        th Actions
+                    
+                    each user in listUser
+                        tr
+                            td=user.name
+                            td=user.phone    
+                            td
+                                a.btn.btn-light(href= '/user/view/' + user.id)  view
+                        
+
+                
+    
