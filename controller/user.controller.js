@@ -24,26 +24,6 @@ module.exports.getCreate =function(req,res){
 }
 
 module.exports.postCreate = function(req, res) {
-
-    var errr =[];
-    var valueName = req.body.name;
-    var valuePhone = req.body.phone;
-    if(!req.body.name){
-        errr.push('name is requied.');
-    }
-    if(!req.body.phone){
-        errr.push('phone is requied.');
-    }
-
-    if(errr.length){
-        res.render('./user/create',{
-            errr : errr,
-            valueName : valueName,
-            valuePhone :valuePhone
-        });
-        return;
-    }
-
     req.body.id = shortid.generate();
     db.get('user')
         .push(req.body)

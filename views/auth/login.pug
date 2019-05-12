@@ -1,0 +1,12 @@
+extends ../layout/comon
+
+block content
+    .container
+        .row
+            .col-12.pt-5
+                
+
+                form.form-group(action="/auth/login", method="post")   
+                    input.form-control.mb-3(type="text",name="email")
+                    input.form-control.mb-3(type="text",name="password")
+                    button.btn.btn-primary.ml-3 Login

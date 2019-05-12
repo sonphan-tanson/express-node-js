@@ -9,6 +9,6 @@ block content
                         .alert.alert-danger=errrs
 
                 form.form-group(action="/user/create", method="post")   
-                    input.form-control.mb-3(type="text",name="name",value=valueName)
-                    input.form-control.mb-3(type="number",name="phone",value=valuePhone)
+                    input.form-control.mb-3(type="text",name="name",value= values ? values.name : '')
+                    input.form-control.mb-3(type="number",name="phone",value= values ? values.phone : '')
                     button.btn.btn-primary.ml-3 Save

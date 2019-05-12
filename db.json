@@ -2,7 +2,9 @@
   "user": [
     {
       "name": "be",
-      "id": "4ABViMmnH"
+      "id": "4ABViMmnH",
+      "email": "anhson@gmail.com",
+      "password": "123"
     },
     {
       "name": "sasas",
@@ -29,6 +31,16 @@
       "name": "sdsdadsa",
       "phone": "0988998989898989898",
       "id": "44AgLFS3j"
+    },
+    {
+      "name": "",
+      "phone": "",
+      "id": "xV-YocuY6"
+    },
+    {
+      "name": "",
+      "phone": "",
+      "id": "BJ_VjHDXT"
     }
   ]
 }

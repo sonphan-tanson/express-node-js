@@ -1,6 +1,12 @@
 
 var routes = require('./routes/user.router');
+var authRoute = require('./routes/auth.rote');
+
 var express = require('express');
+var cookieParser = require('cookie-parser');
+
+var middlewareLogin = require('./authMidlleware/auth.middleware');
+
 var app = express();
 var port = 3000 ;
 
@@ -9,6 +15,7 @@ var port = 3000 ;
 var bodyParser = require('body-parser');
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+app.use(cookieParser());
 
 
 
@@ -20,7 +27,8 @@ app.get('/',function(req,res){
     res.render('index',{ title: 'Hey', message: 'Hello there!' });
 })
 
-app.use( '/user' , routes);
+app.use( '/user' ,middlewareLogin.authMiddle, routes);
+app.use( '/auth' , authRoute);
 
 app.use(express.static('./public'));
 
