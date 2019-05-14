@@ -14,4 +14,7 @@ html
                 span.sr-only (current)
             li.nav-item
               a.nav-link(href='/user') User
+
+        if user
+          p=user.name     
       block content

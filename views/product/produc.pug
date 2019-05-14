@@ -1,0 +1,24 @@
+extends ../layout/comon
+
+block content
+    .container
+        .row
+            each val in products
+                .card.col-3.mt-3.p-0
+                    img.card-img-top(src=val.image, alt='...')
+                    .card-body
+                        h5.card-title=val.name
+                        p.card-text=val.description
+                            a.btn.btn-primary(href='#') Go somewhere
+            nav(aria-label='Page navigation example')
+                ul.pagination
+                    li.page-item
+                        a.page-link(href='/product?page=' + (paginations[0]-1) ) Previous
+                    each val1 in paginations
+                        li.page-item()
+                            a.page-link(href='/product?page=' + val1 , )=val1   
+                    li.page-item
+                        a.page-link(href='/product?page=' + ((paginations[0]+1))) Next
+
+    script
+        include ./ja.js

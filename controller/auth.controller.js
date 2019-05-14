@@ -1,3 +1,5 @@
+var md5 =require('md5');
+
 var db = require('../db');
 
 module.exports.get = function (req , res , next){
@@ -6,6 +8,8 @@ module.exports.get = function (req , res , next){
 module.exports.post = function (req , res , next){
     var email = req.body.email;
     var password = req.body.password;
+    var hasdedPassword = md5(password);
+    console.log(req.body);
     var userEmail = db.get('user')
     .find({ email: email })
     .value();
@@ -13,11 +17,13 @@ module.exports.post = function (req , res , next){
         res.redirect('/auth/login');
         return ;
     };
-    if(password !== userEmail.password){
+    if(hasdedPassword !== userEmail.password){
         res.redirect('/auth/login');
         return ;
     };
-    res.cookie('id',userEmail.id);
+    res.cookie('id',userEmail.id,{
+        signed:true
+    });
     res.redirect('/user');
     next();
 }
