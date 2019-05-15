@@ -1,0 +1,14 @@
+extends ../layout/comon
+
+block content
+    .container
+        .row
+            table.table
+                tr
+                    th  Ten san pham
+                    th  So luong
+                        each val in myCartProducts
+                            tr
+                                td=val.data.name
+                                td=val.count
+                                

@@ -1,19 +1,20 @@
 require('dotenv').config()
+var express = require('express');
+var app = express();
+var port = 3000 ;
 
 var routes = require('./routes/user.router');
 var authRoute = require('./routes/auth.rote');
 var productRoute = require('./routes/product.route');
+var cartRoute =require('./routes/cart.rote');
 
-var express = require('express');
 var cookieParser = require('cookie-parser');
 
 var middlewareLogin = require('./authMidlleware/auth.middleware');
+var sessionMiddleware = require('./authMidlleware/session.middleware');
 
-var app = express();
-var port = 3000 ;
 
 app.use(cookieParser(process.env.CookieSession));
-
 var bodyParser = require('body-parser');
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
@@ -32,6 +33,10 @@ app.get('/',middlewareLogin.authMiddle,function(req,res){
 app.use( '/user' ,middlewareLogin.authMiddle, routes);
 app.use( '/auth' , authRoute);
 app.use( '/product' , productRoute);
+app.use( '/cart' , cartRoute);
+
+app.use(sessionMiddleware);
+
 
 app.use(express.static('./public'));
 

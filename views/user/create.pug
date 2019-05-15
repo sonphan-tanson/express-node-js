@@ -8,7 +8,8 @@ block content
                     each errrs in errr
                         .alert.alert-danger=errrs
 
-                form.form-group(action="/user/create", method="post")   
+                form.form-group(action="/user/create", method="post",enctype="multipart/form-data")   
                     input.form-control.mb-3(type="text",name="name",value= values ? values.name : '')
                     input.form-control.mb-3(type="number",name="phone",value= values ? values.phone : '')
+                    input.form-control.mb-3(type="file",name="avatar")
                     button.btn.btn-primary.ml-3 Save

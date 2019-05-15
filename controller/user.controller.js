@@ -24,7 +24,10 @@ module.exports.getCreate =function(req,res){
 }
 
 module.exports.postCreate = function(req, res) {
+    req.body.avatar = req.file.path.split('\\').slice(1).join('/');
+    console.log(req.file.path);
     req.body.id = shortid.generate();
+    
     db.get('user')
         .push(req.body)
         .write();

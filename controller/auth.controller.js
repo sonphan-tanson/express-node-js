@@ -9,7 +9,7 @@ module.exports.post = function (req , res , next){
     var email = req.body.email;
     var password = req.body.password;
     var hasdedPassword = md5(password);
-    console.log(req.body);
+    
     var userEmail = db.get('user')
     .find({ email: email })
     .value();
