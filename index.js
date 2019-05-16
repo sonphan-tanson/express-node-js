@@ -2,6 +2,10 @@ require('dotenv').config()
 var express = require('express');
 var app = express();
 var port = 3000 ;
+var mongoose = require('mongoose');
+mongoose.connect(process.env.MONGO_URL);
+
+var apiProduct =require('./api/routes/product.route');
 
 var routes = require('./routes/user.router');
 var authRoute = require('./routes/auth.rote');
@@ -34,6 +38,9 @@ app.use( '/user' ,middlewareLogin.authMiddle, routes);
 app.use( '/auth' , authRoute);
 app.use( '/product' , productRoute);
 app.use( '/cart' , cartRoute);
+
+app.use( '/api/product' , apiProduct);
+
 
 app.use(sessionMiddleware);
 

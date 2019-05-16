@@ -11,15 +11,5 @@ block content
                         
                         p.card-text=val.description
                         a.btn.btn-primary(href='cart/add/'+val.id) Add to cart
-            nav(aria-label='Page navigation example')
-                ul.pagination
-                    li.page-item
-                        a.page-link(href='/product?page=' + (paginations[0]-1) ) Previous
-                    each val1 in paginations
-                        li.page-item()
-                            a.page-link(href='/product?page=' + val1 , )=val1   
-                    li.page-item
-                        a.page-link(href='/product?page=' + ((paginations[0]+1))) Next
+            
 
-    script
-        include ./ja.js

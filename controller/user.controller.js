@@ -1,16 +1,17 @@
 const shortid = require('shortid')
 
-var db = require('../db');
+var userModel = require('../models/user.model');
 
 
-module.exports.get = function(req,res){
+module.exports.get = async function(req,res){
+    var pay = await userModel.find();
     res.render('./user/index',{
-        listUser : db.get('user').value(),
+        listUser : pay
     });
 };
 
-module.exports.search = function(req,res){
-    var x = db.get('user').value();
+module.exports.search = async function(req,res){
+    var x = await userModel.find();
     var y = x.filter(function(item){
         return item.name.indexOf(req.query.name) !== -1;
     });
@@ -23,23 +24,18 @@ module.exports.getCreate =function(req,res){
     res.render('./user/create')
 }
 
-module.exports.postCreate = function(req, res) {
+module.exports.postCreate =  function(req, res) {
     req.body.avatar = req.file.path.split('\\').slice(1).join('/');
-    console.log(req.file.path);
     req.body.id = shortid.generate();
-    
-    db.get('user')
-        .push(req.body)
-        .write();
+    userModel.create(req.body);
     res.redirect('/user');
 }
 
-module.exports.view = function(req,res){
+module.exports.view = async function(req,res){
     
     var id =req.params.id ;
-    
-    var data = db.get('user').find( {id: id} ).value();
+    var pay = await userModel.findById(id);
     res.render('./user/view',{
-        user : data
+        user : pay
     })
 }

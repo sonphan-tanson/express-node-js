@@ -1,16 +1,43 @@
-var db =require('../db');
+var CartModel = require('../models/cart.model');
 
-module.exports.addCart =function(req , res , next){
-    var productId = req.params.productId ;
-    var sesssion = req.signedCookies.sessionId;
+module.exports.addCart =  function(req , res , next){
+    try{
+        var productId = req.params.productId ;
+    var sesssion = req.signedCookies.sessionId;  
 
-    var count = db.get('cart').find({'id':sesssion}).get('myCart.'+productId , 0).value();
     
+    var query = { id: sesssion};
+    
+    var count  ;
+    CartModel.findOne({id:sesssion}).then(function(res){
+        if(res.cart[productId] == undefined){
+            count = 0;
+            
+        }else {
+            count =res.cart[productId];
+        };
+        
+    });
 
-    db.get('cart').find({'id':sesssion})
-                .set('myCart.'+productId ,count + 1 )
-                .write();
-    res.redirect('/cart');
+    var obj ={};
+
+
+    obj[productId] =count + 1;
+    
+    
+    CartModel.findOneAndUpdate(query, {$set:{cart:obj } }  , {new: true}, (err, doc) => {
+        if (err) {
+            console.log("Something wrong when updating data!");
+        }
+    
+        console.log(doc);
+    });
+
+           
+    res.redirect('/product');
+    }catch (error){
+        next(error);
+    }
 
 }
 

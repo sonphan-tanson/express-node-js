@@ -1,5 +1,6 @@
 const shortid = require('shortid')
-var db =require('../db');
+
+var CartModel = require('../models/cart.model');
 
 module.exports = function(req,res,next){
 
@@ -10,9 +11,7 @@ module.exports = function(req,res,next){
         res.cookie('sessionId',id,{
             signed:true
         });
-        db.get('cart')
-            .push({ 'id': id})
-            .write()
+        CartModel.create({id:id});
     }
 
     next();
